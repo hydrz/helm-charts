@@ -3,9 +3,9 @@ entries:
   openebs-lite:
   - apiVersion: v1
     appVersion: 1.4.0
-    created: "2019-11-21T08:20:09.731468905Z"
+    created: "2019-11-21T08:22:49.412042987Z"
     description: Containerized Storage for Containers
-    digest: 9b13ebe3b5a8328305a09b857983751911eb0e681a69f24fd9592b84c91025bd
+    digest: 69e03ae44a103f9baed79ed3be57ef4aee092079c54510423814b63a62d0ba6c
     home: http://www.openebs.io/
     icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
     keywords:
@@ -22,4 +22,4 @@ entries:
     urls:
     - openebs-lite/openebs-lite-1.4.0.tgz
     version: 1.4.0
-generated: "2019-11-21T08:20:09.730172814Z"
+generated: "2019-11-21T08:22:49.411415781Z"
