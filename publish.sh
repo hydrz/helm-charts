@@ -26,6 +26,11 @@ echo "HELM_CHARTS_SOURCE=$HELM_CHARTS_SOURCE"
 echo "HELM_VERSION=$HELM_VERSION"
 echo "CIRCLE_BRANCH=$CIRCLE_BRANCH"
 
+if [ "$CIRCLE_BRANCH" != "master" ]; then
+  echo "Current branch is not master and do not publish"
+  exit 0
+fi
+
 echo '>> Prepare...'
 mkdir -p /tmp/helm/bin
 mkdir -p /tmp/helm/publish
@@ -44,25 +49,20 @@ helm init -c
 echo ">> Checking out $GITHUB_PAGES_BRANCH branch from $GITHUB_PAGES_REPO"
 cd /tmp/helm/publish
 mkdir -p "$HOME/.ssh"
-ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts"
+ssh-keyscan -H github.com >>"$HOME/.ssh/known_hosts"
 git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
 echo '>> Building charts...'
 find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
   echo ">>> helm lint $chart"
   helm lint "$chart"
-  chart_name="`basename "$chart"`"
+  chart_name="$(basename "$chart")"
   echo ">>> helm package -d $chart_name $chart"
   mkdir -p "$chart_name"
   helm package -d "$chart_name" "$chart"
 done
 echo '>>> helm repo index'
 helm repo index .
-
-if [ "$CIRCLE_BRANCH" != "master" ]; then
-  echo "Current branch is not master and do not publish"
-  exit 0
-fi
 
 echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
 git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
