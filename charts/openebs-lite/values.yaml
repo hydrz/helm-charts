@@ -1,0 +1,80 @@
+# Default values for openebs.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+
+serviceAccount:
+  create: true
+  name:
+
+storageClass:
+  create: true
+  name:
+  isDefaultClass: false
+  basePath: "/var/openebs/local/"
+  reclaimPolicy: "Delete"
+
+release:
+  # "openebs.io/version" label for control plane components
+  version: "1.4.0"
+
+image:
+  pullPolicy: IfNotPresent
+
+localprovisioner:
+  enabled: true
+  image: "quay-mirror.qiniu.com/openebs/provisioner-localpv"
+  imageTag: "1.4.0"
+  helperImage: "quay-mirror.qiniu.com/openebs/openebs-tools"
+  helperImageTag: "3.8"
+  replicas: 1
+  basePath: "/var/openebs/local"
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  healthCheck:
+    initialDelaySeconds: 30
+    periodSeconds: 60
+
+ndm:
+  enabled: true
+  image: "quay-mirror.qiniu.com/openebs/node-disk-manager-amd64"
+  imageTag: "v0.4.4"
+  sparse:
+    path: "/var/openebs/sparse"
+    size: "10737418240"
+    count: "0"
+  filters:
+    excludeVendors: "CLOUDBYT,OpenEBS"
+    includePaths: ""
+    excludePaths: "loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md"
+  probes:
+    enableSeachest: false
+  nodeSelector: {}
+  tolerations: []
+  healthCheck:
+    initialDelaySeconds: 30
+    periodSeconds: 60
+
+ndmOperator:
+  enabled: true
+  image: "quay-mirror.qiniu.com/openebs/node-disk-operator-amd64"
+  imageTag: "v0.4.4"
+  replicas: 1
+  upgradeStrategy: Recreate
+  nodeSelector: {}
+  tolerations: []
+  readinessCheck:
+    initialDelaySeconds: 4
+    periodSeconds: 10
+    failureThreshold: 1
+  cleanupImage: "quay-mirror.qiniu.com/openebs/linux-utils"
+  cleanupImageTag: "3.9"
+  
+analytics:
+  enabled: true
+  # Specify in hours the duration after which a ping event needs to be sent.
+  pingInterval: "24h"
