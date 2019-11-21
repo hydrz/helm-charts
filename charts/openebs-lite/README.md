@@ -4,7 +4,7 @@
 
 ```
 helm delete openebs --purge
-helm install --name=openebs --namespace openebs hydrz/openebs
+helm install --name=openebs --namespace openebs hydrz/openebs-lite
 ```
 
 ## Configuration
