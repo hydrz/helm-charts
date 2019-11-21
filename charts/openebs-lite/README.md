@@ -4,7 +4,8 @@
 
 ```
 helm delete openebs --purge
-helm install --name=openebs --namespace openebs hydrz/openebs-lite
+helm install --name=openebs --namespace openebs hydrz/openebs-lite \
+    --set storageClass.isDefaultClass=true
 ```
 
 ## Configuration
