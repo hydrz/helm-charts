@@ -5,7 +5,7 @@ metadata:
   name: {{ template "openebs.storageClassName" . }}
   annotations:
     storageclass.kubesphere.io/supported_access_modes: '["ReadWriteOnce"]'
-    storageclass.beta.kubernetes.io/is-default-class: {{ .Values.storageClass.isDefaultClass }}
+    storageclass.beta.kubernetes.io/is-default-class: {{ ternary "true" "false" .Values.storageClass.isDefaultClass | quote }}
     openebs.io/cas-type: local
     cas.openebs.io/config: |
       - name: StorageType
@@ -16,3 +16,4 @@ provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: {{ .Values.storageClass.reclaimPolicy }}
 {{- end }}
+
