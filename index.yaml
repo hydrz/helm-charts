@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  openebs-lite:
+  - apiVersion: v1
+    appVersion: 1.4.0
+    created: "2019-11-21T08:01:04.337858978Z"
+    description: Containerized Storage for Containers
+    digest: cda7e32764a228efd114a9163573a25ef2a1a6140f49d4df0b43253d6a9a8542
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: n.haoyuan@gmail.com
+      name: hydrz
+    name: openebs-lite
+    sources:
+    - https://github.com/hydrz/helm-charts/openebs-lite
+    urls:
+    - openebs-lite/openebs-lite-1.4.0.tgz
+    version: 1.4.0
+generated: "2019-11-21T08:01:04.337276672Z"
