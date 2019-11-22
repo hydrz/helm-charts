@@ -4,8 +4,11 @@
 
 ```
 helm delete openebs --purge
-helm install --name=openebs --namespace openebs hydrz/openebs-lite \
-    --set storageClass.isDefaultClass=true
+helm install --name=openebs --namespace openebs-system hydrz/openebs-lite \
+    --set storageClass.isDefaultClass=true \
+    --set ndm.nodeSelector."node-role\.kubernetes\.io\/master"= \
+    --set localprovisioner.nodeSelector."node-role\.kubernetes\.io\/master"= \
+    --set ndmOperator.nodeSelector."node-role\.kubernetes\.io\/master"=
 ```
 
 ## Configuration

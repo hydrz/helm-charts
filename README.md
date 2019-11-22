@@ -24,3 +24,18 @@ configInline:
     - 172.16.240.0/24
 EOF
 ```
+
+### spring-cloud-data-flow
+
+```
+helm delete dataflow --purge
+helm install --name dataflow --namespace dataflow stable/spring-cloud-data-flow \
+  --set skipper.service.type=LoadBalancer \
+  --set rabbitmq.enabled=false \
+  --set kafka.enabled=true \
+  --set kafka.external.enabled=true \
+  --set kafka.external.type=LoadBalancer \
+  --set kafka.external.firstListenerPort=9092 \
+  --set kafka.zookeeper.service.type=LoadBalancer \
+  --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk
+```

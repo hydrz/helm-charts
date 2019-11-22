@@ -26,9 +26,9 @@ image:
 
 localprovisioner:
   enabled: true
-  image: "quay-mirror.qiniu.com/openebs/provisioner-localpv"
+  image: "quay.azk8s.cn/openebs/provisioner-localpv"
   imageTag: "1.4.0"
-  helperImage: "quay-mirror.qiniu.com/openebs/openebs-tools"
+  helperImage: "quay.azk8s.cn/openebs/openebs-tools"
   helperImageTag: "3.8"
   replicas: 1
   basePath: "/var/openebs/local"
@@ -41,7 +41,7 @@ localprovisioner:
 
 ndm:
   enabled: true
-  image: "quay-mirror.qiniu.com/openebs/node-disk-manager-amd64"
+  image: "quay.azk8s.cn/openebs/node-disk-manager-amd64"
   imageTag: "v0.4.4"
   sparse:
     path: "/var/openebs/sparse"
@@ -61,7 +61,7 @@ ndm:
 
 ndmOperator:
   enabled: true
-  image: "quay-mirror.qiniu.com/openebs/node-disk-operator-amd64"
+  image: "quay.azk8s.cn/openebs/node-disk-operator-amd64"
   imageTag: "v0.4.4"
   replicas: 1
   upgradeStrategy: Recreate
@@ -71,7 +71,7 @@ ndmOperator:
     initialDelaySeconds: 4
     periodSeconds: 10
     failureThreshold: 1
-  cleanupImage: "quay-mirror.qiniu.com/openebs/linux-utils"
+  cleanupImage: "quay.azk8s.cn/openebs/linux-utils"
   cleanupImageTag: "3.9"
   
 analytics:
