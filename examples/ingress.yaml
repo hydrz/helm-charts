@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: spring-cloud-data-flow
+    chart: spring-cloud-data-flow-2.4.5
+    heritage: Tiller
+    release: spring-cloud-data-flow
+  name: spring-cloud-data-flow
+  namespace: spring-cloud
+spec:
+  rules:
+    - host: dataflow.hydrz.cn
+      http:
+        paths:
+          - backend:
+              serviceName: dataflow-data-flow-server
+              servicePort: 80
+  tls:
+    - hosts:
+        - dataflow.hydrz.cn
+      secretName: dataflow-data-flow-server
