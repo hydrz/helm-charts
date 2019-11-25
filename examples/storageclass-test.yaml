@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 80
@@ -19,14 +19,14 @@ metadata:
   name: web
 spec:
   serviceName: "nginx"
-  replicas: 5
+  replicas: 2
   volumeClaimTemplates:
     - metadata:
         name: html
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: "openebs-openebs-lite"
+        storageClassName: "alicloud-nas"
         resources:
           requests:
             storage: 2Gi

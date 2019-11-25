@@ -78,13 +78,13 @@ helm install --name nexus --namespace ops-dev stable/sonatype-nexus \
 
 ```
 helm delete dataflow --purge
-helm install --name dataflow --namespace dataflow stable/spring-cloud-data-flow \
-  --set skipper.service.type=LoadBalancer \
-  --set rabbitmq.enabled=false \
-  --set kafka.enabled=true \
+helm install --name dataflow --namespace spring-cloud stable/spring-cloud-data-flow \
+  --set server.service.type=ClusterIP \
+  --set skipper.service.type=ClusterIP \
+  --set kafka.enabled=true,rabbitmq.enabled=false \
   --set kafka.external.enabled=true \
-  --set kafka.external.type=LoadBalancer \
+  --set kafka.external.type=ClusterIP \
   --set kafka.external.firstListenerPort=9092 \
-  --set kafka.zookeeper.service.type=LoadBalancer \
+  --set kafka.zookeeper.service.type=ClusterIP \
   --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk
 ```
