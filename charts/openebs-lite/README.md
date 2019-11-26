@@ -3,8 +3,7 @@
 ## Installing/Uninstall
 
 ```
-helm delete openebs --purge
-helm install --name=openebs --namespace openebs-system hydrz/openebs-lite \
+helm upgrade --install --name=openebs --namespace openebs-system hydrz/openebs-lite \
     --set storageClass.isDefaultClass=true \
     --set ndm.nodeSelector."node-role\.kubernetes\.io\/master"= \
     --set localprovisioner.nodeSelector."node-role\.kubernetes\.io\/master"= \
@@ -50,7 +49,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```shell
-helm install --name openebs -f values.yaml stable/openebs
+helm upgrade --install --name openebs -f values.yaml stable/openebs
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
