@@ -1,0 +1,23 @@
+apiVersion: "greenplum.pivotal.io/v1"
+kind: "GreenplumCluster"
+metadata:
+  name: greenplum-instance
+spec:
+  masterAndStandby:
+    hostBasedAuthentication: |
+      # host   all   gpadmin   1.2.3.4/32   trust
+      # host   all   gpuser    0.0.0.0/0   md5
+    memory: "800Mi"
+    cpu: "0.5"
+    storageClassName: "alicloud-nas"
+    storage: 1G
+    antiAffinity: "yes"
+    workerSelector: {}
+  segments:
+    primarySegmentCount: 1
+    memory: "800Mi"
+    cpu: "0.5"
+    storageClassName: "alicloud-nas"
+    storage: 2G
+    antiAffinity: "yes"
+    workerSelector: {}

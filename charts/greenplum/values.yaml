@@ -1,0 +1,10 @@
+---
+# specify the url for the docker image for the operator, e.g. gcr.io/<my_project>/greenplum-operator
+operatorImageRepository: registry.cn-hangzhou.aliyuncs.com/hydrz/greenplum-operator
+operatorImageTag: v1.9.0
+
+# specify the docker image for greenplum instance, e.g. gcr.io/<my_project>/greenplum-instance
+greenplumImageRepository: registry.cn-hangzhou.aliyuncs.com/hydrz/greenplum-for-kubernetes
+greenplumImageTag: v1.9.0
+
+operatorWorkerSelector: {}
