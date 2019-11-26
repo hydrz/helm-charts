@@ -1,11 +1,66 @@
 apiVersion: v1
 entries:
+  greenplum:
+  - apiVersion: v1
+    appVersion: v1.9.0
+    created: "2019-11-26T12:39:01.17280947Z"
+    description: The Helm chart for the operator of Greenplum for Kubernetes
+    digest: 5a320c7995f91773e0a26dd39faa833e6d176d1da5aa14c291d5b47514957bff
+    name: greenplum
+    urls:
+    - greenplum/greenplum-1.2.0.tgz
+    version: 1.2.0
+  minio-ha:
+  - apiVersion: v1
+    appVersion: RELEASE.2019-08-07T01-59-21Z
+    created: "2019-11-26T12:39:01.174181959Z"
+    description: MinIO is a high performance distributed object storage server, designed
+      for large-scale private cloud infrastructure.
+    digest: 6f1236ecbf904991d92c2647e76516864f774e70812d8e73cd5294438e6cb1ff
+    home: https://min.io
+    icon: https://min.io/resources/img/logo/MINIO_wordmark.png
+    keywords:
+    - storage
+    - object-storage
+    - S3
+    maintainers:
+    - email: hello@acale.ph
+      name: Acaleph
+    - email: dev@minio.io
+      name: Minio
+    name: minio-ha
+    sources:
+    - https://github.com/minio/minio
+    urls:
+    - minio-ha/minio-ha-2.5.16.tgz
+    version: 2.5.16
+  mysql-ha:
+  - apiVersion: v1
+    appVersion: 5.7.13
+    created: "2019-11-26T12:39:01.174636644Z"
+    description: MySQL cluster with a single master and zero or more slave replicas
+    digest: 58d2dd6f2041d2913a8719b78d136d2bb444b0a3ba83429bc4935423b5a91325
+    home: https://www.mysql.com/
+    icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+    keywords:
+    - mysql
+    - database
+    - sql
+    maintainers:
+    - email: helmchart-mysql@jasonpoon.ca
+      name: jpoon
+    - email: urakiny@gmail.com
+      name: aisuko
+    name: mysql-ha
+    urls:
+    - mysql-ha/mysql-ha-1.0.0.tgz
+    version: 1.0.0
   openebs-lite:
   - apiVersion: v1
     appVersion: 1.4.0
-    created: "2019-11-26T01:33:17.49947939Z"
+    created: "2019-11-26T12:39:01.175020012Z"
     description: Containerized Storage for Containers
-    digest: 76a2f217e4ceba6711e46dccd5bfd768e983f9b035712d4d1f63a00073be0958
+    digest: 3395464c0910b1512a8b495f4ef8accc4d2de67cf33779dda813a16b9613ec7e
     home: http://www.openebs.io/
     icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
     keywords:
@@ -22,4 +77,40 @@ entries:
     urls:
     - openebs-lite/openebs-lite-1.4.0.tgz
     version: 1.4.0
-generated: "2019-11-26T01:33:17.498906229Z"
+  openldap-ha:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-11-26T12:39:01.175248991Z"
+    description: A Helm chart for Kubernetes
+    digest: 50882d1154d2a7ccbd0cbad9334e6a30b8b609434d14e978bd37bd84ffd9305d
+    name: openldap-ha
+    urls:
+    - openldap-ha/openldap-ha-0.1.0.tgz
+    version: 0.1.0
+  redis-ha:
+  - apiVersion: v1
+    appVersion: 5.0.5
+    created: "2019-11-26T12:39:01.176029009Z"
+    description: Highly available Kubernetes implementation of Redis
+    digest: 3278d56d63b424db1fed584708c4bd4d47559bd26c51ac06072a0532b915f913
+    engine: gotpl
+    home: http://redis.io/
+    icon: https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/1200px-Redis_Logo.svg.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - email: salimsalaues@gmail.com
+      name: ssalaues
+    - email: aaron.layfield@gmail.com
+      name: dandydeveloper
+    name: redis-ha
+    sources:
+    - https://redis.io/download
+    - https://github.com/scality/Zenko/tree/development/1.0/kubernetes/zenko/charts/redis-ha
+    - https://github.com/oliver006/redis_exporter
+    urls:
+    - redis-ha/redis-ha-3.9.0.tgz
+    version: 3.9.0
+generated: "2019-11-26T12:39:01.172309729Z"
