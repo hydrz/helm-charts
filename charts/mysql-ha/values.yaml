@@ -2,7 +2,7 @@
 ## ref: https://hub.docker.com/r/library/mysql/tags/
 ##
 mysqlImage: mysql:5.7.13
-xtraBackupImage: gcr.io/google-samples/xtrabackup:1.0
+xtraBackupImage: gcr.azk8s.cn/google-samples/xtrabackup:1.0
 
 ## Specify an imagePullPolicy (Required)
 ## It's recommended to change this to 'Always' if the image tag is 'latest'

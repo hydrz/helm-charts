@@ -17,9 +17,15 @@ service:
 
 ldap:
   replication: false
-  organisation: kubesphere
-  domain: kubesphere.io
+  organisation: hydrz
+  domain: hydrz.cn
   adminPassword: admin
+
+persistence:
+  enabled: true
+  # storageClass: "-"
+  size: "2Gi"
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -36,3 +42,5 @@ resources: {}
 nodeSelector: {}
 
 tolerations: []
+
+affinity: {}
