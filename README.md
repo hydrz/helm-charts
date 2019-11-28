@@ -98,23 +98,58 @@ helm upgrade --install redis --namespace default stable/redis-ha \
  --set persistentVolume.enabled=false
 ```
 
-### mysql-ha
+### mysql
 
 ```
-helm upgrade --install mysql --namespace default incubator/mysqlha \
- --set xtraBackupImage=gcr.azk8s.cn/google-samples/xtrabackup:1.0 \
- --set msql.mysqlRootPassword=root \
- --set persistence.size=10Gi
+helm upgrade --install mysql --namespace default bitnami/mysql \
+ --set global.imageRegistry=dockerhub.azk8s.cn \
+ --set root.password=root \
+ --set db.name=default \
+ --set replication.enabled=true \
+ --set slave.replicas=1 \
+ --set master.persistence.size=10Gi,slave.persistence.size=10Gi
 ```
 
 ### spring-cloud-data-flow
 
 ```
+helm upgrade --install mysql --namespace spring bitnami/mysql \
+ --set global.imageRegistry=dockerhub.azk8s.cn \
+ --set image.tag=5.7.28-debian-9-r36 \
+ --set root.password=root \
+ --set db.name=default \
+ --set replication.enabled=true \
+ --set slave.replicas=1 \
+ --set master.persistence.size=10Gi,slave.persistence.size=10Gi
+
+kubectl run mysql-client --rm -it --restart='Never' --image  dockerhub.azk8s.cn/bitnami/mysql:5.7.28-debian-9-r36 --namespace spring --command -- bash
+mysql -h mysql -u root -p -e 'create database dataflow;create database skipper'
+
+
+# H2 org.h2.Driver
+# mysql5.7 org.mariadb.jdbc.Driver
+# mysql8.0 com.mysql.jdbc.Driver
+# PostgreSQL org.postgresql.Driver
+# SQL Server com.microsoft.sqlserver.jdbc.SQLServerDriver
+# Db2 com.ibm.db2.jcc.DB2Driver
+# Oracle oracle.jdbc.OracleDriver
+
 helm upgrade --install dataflow --namespace spring stable/spring-cloud-data-flow \
   --set server.service.type=ClusterIP \
   --set skipper.service.type=ClusterIP \
-  --set mysql.enabled=false,database.password=root \
   --set kafka.enabled=true,rabbitmq.enabled=false \
   --set kafka.zookeeper.service.type=ClusterIP \
-  --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk
+  --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk \
+  --set mysql.enabled=false \
+  --set database.driver='org.mariadb.jdbc.Driver' \
+  --set database.scheme=mysql \
+  --set database.host=mysql \
+  --set database.port=3306 \
+  --set database.user=root \
+  --set database.password=root
+
+kubectl scale deployment --replicas 0 dataflow-data-flow-server
+kubectl scale deployment --replicas 1 dataflow-data-flow-server
+kubectl scale deployment --replicas 0 dataflow-data-flow-skipper
+kubectl scale deployment --replicas 1 dataflow-data-flow-skipper
 ```
