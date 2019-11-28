@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: kubesphere-system
+spec:
+  ports:
+    - name: redis
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+  selector:
+    app: redis
+  type: ClusterIP
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: kubesphere-system
+spec:
+  serviceName: "redis"
+  replicas: 1
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        # storageClassName: ""
+        resources:
+          requests:
+            storage: 2Gi
+  template:
+    metadata:
+      labels:
+        app: kubesphere
+        tier: redis
+    spec:
+      containers:
+        - image: redis:5.0.5-alpine
+          imagePullPolicy: IfNotPresent
+          name: redis
+          volumeMounts:
+            - name: redis-pvc
+              mountPath: /data
+              subPath: redis-dat
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+            requests:
+              cpu: 20m
+              memory: 100Mi
+      volumes:
+        - name: redis-pvc
+          persistentVolumeClaim:
+            claimName: redis-pvc

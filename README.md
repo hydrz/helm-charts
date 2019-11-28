@@ -20,8 +20,8 @@ helm repo update
 kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.11/deploy/manifests/00-crds.yaml
 kubectl create namespace cert-manager
 
-helm delete cert-manager --purge
-helm install --name cert-manager --namespace cert-manager --version v0.11.0 jetstack/cert-manager \
+
+helm upgrade --install cert-manager --namespace cert-manager --version v0.11.0 jetstack/cert-manager \
  --set prometheus.enabled=false \
  --set image.repository=quay.azk8s.cn/jetstack/cert-manager-controller \
  --set webhook.image.repository=quay.azk8s.cn/jetstack/cert-manager-webhook \
@@ -33,8 +33,7 @@ helm install --name cert-manager --namespace cert-manager --version v0.11.0 jets
 ### metallb
 
 ```
-helm delete metallb --purge
-cat <<-EOF | helm install --name metallb --namespace metallb stable/metallb -f -
+cat <<-EOF | helm upgrade --install metallb --namespace metallb stable/metallb -f -
 configInline:
   address-pools:
   - name: default
@@ -47,8 +46,7 @@ EOF
 ### gogs
 
 ```
-helm delete gogs --purge
-helm install --name git --namespace ops-dev incubator/gogs \
+helm upgrade --install git --namespace ops-dev incubator/gogs \
     --set serviceType=ClusterIP \
     --set service.ingress.enabled=true \
     --set "service.ingress.hosts[0]"=git.hydrz.cn \
@@ -65,8 +63,7 @@ helm install --name git --namespace ops-dev incubator/gogs \
 ### nexus
 
 ```
-helm delete nexus --purge
-helm install --name nexus --namespace ops-dev stable/sonatype-nexus \
+helm upgrade --install nexus --namespace ops-dev stable/sonatype-nexus \
     --set nexus.service.type=ClusterIP \
     --set nexus.imageName=quay.azk8s.cn/travelaudience/docker-nexus \
     --set ingress.enabled=true \
@@ -77,10 +74,10 @@ helm install --name nexus --namespace ops-dev stable/sonatype-nexus \
 ### spring-cloud-data-flow
 
 ```
-helm delete dataflow --purge
-helm install --name dataflow --namespace spring-cloud stable/spring-cloud-data-flow \
+helm upgrade --install dataflow --namespace spring-cloud stable/spring-cloud-data-flow \
   --set server.service.type=ClusterIP \
   --set skipper.service.type=ClusterIP \
+  --set mysql.timezone=Asia/Shanghai \
   --set kafka.enabled=true,rabbitmq.enabled=false \
   --set kafka.zookeeper.service.type=ClusterIP \
   --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk

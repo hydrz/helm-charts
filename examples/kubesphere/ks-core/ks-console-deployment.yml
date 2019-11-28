@@ -1,0 +1,99 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: ks-console
+    tier: frontend
+    version: v2.1.0
+  name: ks-console
+  namespace: kubesphere-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ks-console
+      tier: frontend
+      version: v2.1.0
+  template:
+    metadata:
+      labels:
+        app: ks-console
+        tier: frontend
+        version: v2.1.0
+    spec:
+      imagePullSecrets:
+        - name: qingcloud
+      containers:
+        - image: kubesphere/ks-console:v2.1.0
+          imagePullPolicy: IfNotPresent
+          name: ks-console
+          resources:
+            limits:
+              cpu: "1"
+              memory: 500Mi
+            requests:
+              cpu: 20m
+              memory: 100Mi
+          volumeMounts:
+            # - mountPath: /etc/kubernetes/pki
+            #   name: ca-dir
+            - mountPath: /root/KubeSphereUI/server/local_config.yaml
+              name: ks-console-config
+              subPath: local_config.yaml
+            - mountPath: /root/KubeSphereUI/server/sample
+              name: sample-bookinfo
+      # - image: redis:5.0.5-alpine
+      #   imagePullPolicy: IfNotPresent
+      #   name: redis
+      serviceAccount: kubesphere
+      serviceAccountName: kubesphere
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 60
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 60
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: In
+                    values:
+                      - ""
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ks-console
+              namespaces:
+                - kubesphere-system
+      volumes:
+        # - name: ca-dir
+        #   secret:
+        #     defaultMode: 420
+        #     secretName: front-proxy-client
+        - configMap:
+            defaultMode: 420
+            name: ks-console-config
+            items:
+              - key: local_config.yaml
+                path: local_config.yaml
+          name: ks-console-config
+        - configMap:
+            defaultMode: 420
+            name: sample-bookinfo
+          name: sample-bookinfo

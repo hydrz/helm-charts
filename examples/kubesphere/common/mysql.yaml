@@ -1,0 +1,78 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: kubesphere-system
+  labels:
+    app: kubesphere
+    tier: db
+spec:
+  selector:
+    app: kubesphere
+    tier: db
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: kubesphere-system
+  labels:
+    app: kubesphere
+    tier: mysql
+spec:
+  serviceName: "mysql"
+  replicas: 1
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        # storageClassName: ""
+        resources:
+          requests:
+            storage: 2Gi
+  template:
+    metadata:
+      labels:
+        app: kubesphere
+        tier: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0.11
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            postStart:
+              exec:
+                command: ["sh", "-c", "rm -rf /var/lib/mysql/lost+found"]
+          args:
+            - --default-authentication-plugin=mysql_native_password
+            - --expire_logs_days=3
+            - --binlog-expire-logs-seconds=604800
+            - --max-binlog-size=1073741824
+            - --max_allowed_packet=104857600
+          env:
+            # $ kubectl create secret generic mysql-pass --from-file=password.txt
+            # make sure password.txt does not have a trailing newline
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password.txt
+                  name: mysql-pass
+            - name: MYSQL_DATABASE
+              value: kubesphere
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-pvc
+              mountPath: /var/lib/mysql

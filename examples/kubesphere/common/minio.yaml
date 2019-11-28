@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: kubesphere-system
+  labels:
+    app: kubesphere
+    tier: minio
+spec:
+  selector:
+    app: kubesphere
+    tier: minio
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: minio
+  namespace: kubesphere-system
+  labels:
+    app: kubesphere
+    tier: minio
+spec:
+  serviceName: "minio"
+  replicas: 1
+  volumeClaimTemplates:
+    - metadata:
+        name: minio-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        # storageClassName: ""
+        resources:
+          requests:
+            storage: 2Gi
+  template:
+    metadata:
+      labels:
+        app: kubesphere
+        tier: minio
+    spec:
+      containers:
+        - name: minio
+          image: minio/minio:RELEASE.2019-08-07T01-59-21Z
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  [
+                    "sh",
+                    "-c",
+                    "mkdir -p /data/openpitrix-attachment /data/openpitrix-internal-repo/vmbased /data/openpitrix-internal-repo/helm /data/s2i-binaries",
+                  ]
+          args:
+            - server
+            - /data
+          env:
+            - name: MINIO_ACCESS_KEY
+              value: "openpitrixminioaccesskey"
+            - name: MINIO_SECRET_KEY
+              value: "openpitrixminiosecretkey"
+          ports:
+            - containerPort: 9000
+              name: minio
+          volumeMounts:
+            - name: minio-pvc
+              mountPath: /data

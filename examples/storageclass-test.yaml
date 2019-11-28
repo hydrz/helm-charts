@@ -19,14 +19,14 @@ metadata:
   name: web
 spec:
   serviceName: "nginx"
-  replicas: 2
+  replicas: 1
   volumeClaimTemplates:
     - metadata:
         name: html
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: "alicloud-nas"
+        # storageClassName: "alicloud-nas"
         resources:
           requests:
             storage: 2Gi
