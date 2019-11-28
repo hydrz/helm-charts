@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: html
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 16Gi
+  volumeName: "default-html-web-0-pvc-fd891f61-119a-11ea-bea9-bab74d2d6b32"

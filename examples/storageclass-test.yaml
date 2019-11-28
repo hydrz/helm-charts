@@ -39,5 +39,5 @@ spec:
         - name: nginx
           image: nginx:alpine
           volumeMounts:
-            - mountPath: "/data"
+            - mountPath: "/usr/share/nginx/html"
               name: html

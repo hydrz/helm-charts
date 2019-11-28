@@ -6,6 +6,9 @@
 
 ```
 helm repo add hydrz https://hydrz.github.io/helm-charts/
+helm repo add incubator http://mirror.azure.cn/kubernetes/charts-incubator/
+helm repo add bitnami https://charts.bitnami.com/bitnami/
+
 helm repo update
 ```
 
@@ -71,13 +74,46 @@ helm upgrade --install nexus --namespace ops-dev stable/sonatype-nexus \
     --set nexusProxy.imageName=quay.azk8s.cn/travelaudience/docker-nexus-proxy
 ```
 
+### minio
+
+```
+helm upgrade --install minio --namespace default stable/minio \
+ --set accessKey=minio,secretKey=miniosecret \
+ --set defaultBucket.enabled=true,defaultBucket.name=default \
+ --set defaultBucket.enabled=true,defaultBucket.name=default \
+ --set persistence.size=1Gi
+```
+
+### openldap
+
+```
+helm upgrade --install redis --namespace default stable/redis-ha \
+ --set persistentVolume.enabled=false
+```
+
+### redis-ha
+
+```
+helm upgrade --install redis --namespace default stable/redis-ha \
+ --set persistentVolume.enabled=false
+```
+
+### mysql-ha
+
+```
+helm upgrade --install mysql --namespace default incubator/mysqlha \
+ --set xtraBackupImage=gcr.azk8s.cn/google-samples/xtrabackup:1.0 \
+ --set msql.mysqlRootPassword=root \
+ --set persistence.size=10Gi
+```
+
 ### spring-cloud-data-flow
 
 ```
-helm upgrade --install dataflow --namespace spring-cloud stable/spring-cloud-data-flow \
+helm upgrade --install dataflow --namespace spring stable/spring-cloud-data-flow \
   --set server.service.type=ClusterIP \
   --set skipper.service.type=ClusterIP \
-  --set mysql.timezone=Asia/Shanghai \
+  --set mysql.enabled=false,database.password=root \
   --set kafka.enabled=true,rabbitmq.enabled=false \
   --set kafka.zookeeper.service.type=ClusterIP \
   --set kafka.zookeeper.image.repository=gcr.azk8s.cn/google_samples/k8szk
