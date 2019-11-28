@@ -14,6 +14,10 @@ helm repo update
 
 ## Others
 
+### openvpn
+
+
+
 ### cert-manager
 
 ```
@@ -136,6 +140,7 @@ mysql -h mysql -u root -p -e 'create database dataflow;create database skipper'
 
 helm upgrade --install dataflow --namespace spring stable/spring-cloud-data-flow \
   --set server.service.type=ClusterIP \
+  --set server.service.externalPort=80 \
   --set skipper.service.type=ClusterIP \
   --set kafka.enabled=true,rabbitmq.enabled=false \
   --set kafka.zookeeper.service.type=ClusterIP \

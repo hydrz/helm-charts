@@ -1,2 +1,4 @@
 #!/bin/sh
-kubectl -n spring create secret generic basic-auth --from-file=basic-auth
+
+htpasswd -c auth hydrz
+kubectl -n spring create secret generic basic-auth --from-file=auth

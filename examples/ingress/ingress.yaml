@@ -8,6 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required - hydrz"
   labels:
     app: spring-cloud-data-flow
+    chart: spring-cloud-data-flow-2.2.2.RELEASE
+    fullname: spring-cloud-data-flow
+    heritage: Tiller
+    release: spring-cloud-data-flow
   name: spring-cloud-data-flow
   namespace: spring
 spec:
@@ -21,4 +25,4 @@ spec:
   tls:
     - hosts:
         - dataflow.hydrz.cn
-      secretName: dataflow-data-flow-server
+      secretName: dataflow-tls
