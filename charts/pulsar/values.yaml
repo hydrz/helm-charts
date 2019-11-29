@@ -236,15 +236,13 @@ proxy:
   ##
   service:
     annotations: {}
-    type: NodePort
+    type: ClusterIP
     ports:
     - name: http
       port: 8080
-      nodePort: 30001
       protocol: TCP
     - name: tcp
       port: 6650
-      nodePort: 30002
       protocol: TCP
   ## Proxy PodDisruptionBudget
   ## templates/proxy-pdb.yaml
