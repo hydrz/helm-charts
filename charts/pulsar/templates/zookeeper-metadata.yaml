@@ -39,7 +39,7 @@ spec:
         command: ["sh", "-c"]
         args:
           - >-
-            until nslookup {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}-{{ add (.Values.zookeeper.replicaCount | int) -1 }}.{{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}.{{ .Release.namespace }}; do
+            until nslookup {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}-{{ add (.Values.zookeeper.replicaCount | int) -1 }}.{{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}.${PULSAR_NAMESPACE}; do
               sleep 3;
             done;
       containers:
@@ -50,6 +50,9 @@ spec:
         resources:
 {{ toYaml .Values.zookeeperMetadata.resources | indent 10 }}
       {{- end }}
+        env:
+        - name: PULSAR_NAMESPACE
+          value: "{{ .Release.Namespace }}"
         command: ["sh", "-c"]
         args:
           - >
