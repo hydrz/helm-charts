@@ -17,10 +17,6 @@
 # under the License.
 #
 
-## Namespace to deploy pulsar
-namespace: pulsar
-namespaceCreate: no
-
 ## If persistence is enabled, components that has state will
 ## be deployed with PersistentVolumeClaims, otherwise, for test
 ## purposes, they will be deployed with emptDir

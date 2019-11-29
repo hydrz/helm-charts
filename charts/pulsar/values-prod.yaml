@@ -17,10 +17,6 @@
 # under the License.
 #
 
-## Namespace to deploy pulsar
-namespace: pulsar
-namespaceCreate: yes
-
 ## If persistence is enabled, components that have state will
 ## be deployed with PersistentVolumeClaims, otherwise, for test
 ## purposes, they will be deployed with emptyDir
@@ -62,7 +58,7 @@ zookeeper:
     type: OnDelete
   podManagementPolicy: OrderedReady
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8000"
@@ -80,15 +76,15 @@ zookeeper:
       ## the default storage class for the cluster will be used.
       ##
       # storageClass:
-        # type: pd-ssd
-        # fsType: xfs
-        # provisioner: kubernetes.io/gce-pd
+      # type: pd-ssd
+      # fsType: xfs
+      # provisioner: kubernetes.io/gce-pd
   ## Zookeeper configmap
   ## templates/zookeeper-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\"-Xms15g -Xmx15g -Dcom.sun.management.jmxremote -Djute.maxbuffer=10485760 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -Dzookeeper.forceSync=no\""
-    PULSAR_GC: "\"-XX:+UseG1GC -XX:MaxGCPauseMillis=10\""
+    PULSAR_MEM: '"-Xms15g -Xmx15g -Dcom.sun.management.jmxremote -Djute.maxbuffer=10485760 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -Dzookeeper.forceSync=no"'
+    PULSAR_GC: '"-XX:+UseG1GC -XX:MaxGCPauseMillis=10"'
   ## Zookeeper service
   ## templates/zookeeper-service.yaml
   ##
@@ -96,12 +92,12 @@ zookeeper:
     annotations:
       service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
     ports:
-    - name: server
-      port: 2888
-    - name: leader-election
-      port: 3888
-    - name: stats
-      port: 2181
+      - name: server
+        port: 2888
+      - name: leader-election
+        port: 3888
+      - name: stats
+        port: 2181
   ## Zookeeper PodDisruptionBudget
   ## templates/zookeeper-pdb.yaml
   ##
@@ -128,7 +124,7 @@ bookkeeper:
     type: OnDelete
   podManagementPolicy: OrderedReady
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8000"
@@ -146,9 +142,9 @@ bookkeeper:
       ## the default storage class for the cluster will be used.
       ##
       # storageClass:
-        # type: pd-ssd
-        # fsType: xfs
-        # provisioner: kubernetes.io/gce-pd
+      # type: pd-ssd
+      # fsType: xfs
+      # provisioner: kubernetes.io/gce-pd
     ledgers:
       name: ledgers
       size: 50Gi
@@ -156,14 +152,14 @@ bookkeeper:
       ## the default storage class for the cluster will be used.
       ##
       # storageClass:
-        # type: pd-ssd
-        # fsType: xfs
-        # provisioner: kubernetes.io/gce-pd
+      # type: pd-ssd
+      # fsType: xfs
+      # provisioner: kubernetes.io/gce-pd
   ## Bookkeeper configmap
   ## templates/bookkeeper-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\"-Xms15g -Xmx15g -XX:MaxDirectMemorySize=15g -Dio.netty.leakDetectionLevel=disabled -Dio.netty.recycler.linkCapacity=1024 -XX:+UseG1GC -XX:MaxGCPauseMillis=10 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintHeapAtGC -verbosegc -XX:G1LogLevel=finest\""
+    PULSAR_MEM: '"-Xms15g -Xmx15g -XX:MaxDirectMemorySize=15g -Dio.netty.leakDetectionLevel=disabled -Dio.netty.recycler.linkCapacity=1024 -XX:+UseG1GC -XX:MaxGCPauseMillis=10 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintHeapAtGC -verbosegc -XX:G1LogLevel=finest"'
     dbStorage_writeCacheMaxSizeMb: "2048"
     dbStorage_readAheadCacheMaxSizeMb: "2048"
     dbStorage_rocksDB_blockCacheSize: "268435456"
@@ -177,8 +173,8 @@ bookkeeper:
     annotations:
       publishNotReadyAddresses: "true"
     ports:
-    - name: server
-      port: 3181
+      - name: server
+        port: 3181
   ## Bookkeeper PodDisruptionBudget
   ## templates/bookkeeper-pdb.yaml
   ##
@@ -193,7 +189,7 @@ broker:
   component: broker
   replicaCount: 3
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -207,8 +203,8 @@ broker:
   ## templates/broker-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\"-Xms15g -Xmx15g -XX:MaxDirectMemorySize=15g -Dio.netty.leakDetectionLevel=disabled -Dio.netty.recycler.linkCapacity=1024 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem\""
-    PULSAR_GC: "\"-XX:+UseG1GC -XX:MaxGCPauseMillis=10\""
+    PULSAR_MEM: '"-Xms15g -Xmx15g -XX:MaxDirectMemorySize=15g -Dio.netty.leakDetectionLevel=disabled -Dio.netty.recycler.linkCapacity=1024 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"'
+    PULSAR_GC: '"-XX:+UseG1GC -XX:MaxGCPauseMillis=10"'
     managedLedgerDefaultEnsembleSize: "3"
     managedLedgerDefaultWriteQuorum: "3"
     managedLedgerDefaultAckQuorum: "2"
@@ -220,10 +216,10 @@ broker:
   service:
     annotations: {}
     ports:
-    - name: http
-      port: 8080
-    - name: pulsar
-      port: 6650
+      - name: http
+        port: 8080
+      - name: pulsar
+        port: 6650
   ## Broker PodDisruptionBudget
   ## templates/broker-pdb.yaml
   ##
@@ -238,7 +234,7 @@ proxy:
   component: proxy
   replicaCount: 3
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -252,7 +248,7 @@ proxy:
   ## templates/proxy-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\"-Xms4g -Xmx4g -XX:MaxDirectMemorySize=4g\""
+    PULSAR_MEM: '"-Xms4g -Xmx4g -XX:MaxDirectMemorySize=4g"'
   ## Proxy service
   ## templates/proxy-service.yaml
   ##
@@ -260,14 +256,14 @@ proxy:
     annotations: {}
     type: NodePort
     ports:
-    - name: http
-      port: 8080
-      nodePort: 30001
-      protocol: TCP
-    - name: tcp
-      port: 6650
-      nodePort: 30002
-      protocol: TCP
+      - name: http
+        port: 8080
+        nodePort: 30001
+        protocol: TCP
+      - name: tcp
+        port: 6650
+        nodePort: 30002
+        protocol: TCP
   ## Proxy PodDisruptionBudget
   ## templates/proxy-pdb.yaml
   ##
@@ -282,7 +278,7 @@ autoRecovery:
   component: autorecovery
   replicaCount: 1
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations: {}
   tolarations: []
   gracePeriod: 0
@@ -294,7 +290,7 @@ autoRecovery:
   ## templates/autorecovery-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\" -Xms1g -Xmx1g \""
+    PULSAR_MEM: '" -Xms1g -Xmx1g "'
 
 ## Pulsar Extra: Dashboard
 ## templates/dashboard-deployment.yaml
@@ -303,7 +299,7 @@ dashboard:
   component: dashboard
   replicaCount: 1
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations: {}
   tolarations: []
   gracePeriod: 0
@@ -321,8 +317,8 @@ dashboard:
   service:
     annotations: {}
     ports:
-    - name: server
-      port: 80
+      - name: server
+        port: 80
   ingress:
     enabled: false
     annotations: {}
@@ -331,7 +327,6 @@ dashboard:
     path: "/"
     port: 80
 
-
 ## Pulsar Extra: Bastion
 ## templates/bastion-deployment.yaml
 ##
@@ -339,7 +334,7 @@ bastion:
   component: bastion
   replicaCount: 1
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations: {}
   tolarations: []
   gracePeriod: 0
@@ -351,7 +346,7 @@ bastion:
   ## templates/bastion-configmap.yaml
   ##
   configData:
-    PULSAR_MEM: "\"-Xms1g -Xmx1g -XX:MaxDirectMemorySize=1g\""
+    PULSAR_MEM: '"-Xms1g -Xmx1g -XX:MaxDirectMemorySize=1g"'
 
 ## Monitoring Stack: Prometheus
 ## templates/prometheus-deployment.yaml
@@ -360,7 +355,7 @@ prometheus:
   component: prometheus
   replicaCount: 1
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations: {}
   tolarations: []
   gracePeriod: 0
@@ -380,17 +375,17 @@ prometheus:
       ## the default storage class for the cluster will be used.
       ##
       # storageClass:
-        # type: pd-standard
-        # fsType: xfs
-        # provisioner: kubernetes.io/gce-pd
+      # type: pd-standard
+      # fsType: xfs
+      # provisioner: kubernetes.io/gce-pd
   ## Prometheus service
   ## templates/prometheus-service.yaml
   ##
   service:
     annotations: {}
     ports:
-    - name: server
-      port: 9090
+      - name: server
+        port: 9090
 
 ## Monitoring Stack: Grafana
 ## templates/grafana-deployment.yaml
@@ -399,7 +394,7 @@ grafana:
   component: grafana
   replicaCount: 1
   # nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool
+  # cloud.google.com/gke-nodepool: default-pool
   annotations: {}
   tolarations: []
   gracePeriod: 0
@@ -417,5 +412,5 @@ grafana:
   service:
     annotations: {}
     ports:
-    - name: server
-      port: 3000
+      - name: server
+        port: 3000
