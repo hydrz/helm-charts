@@ -33,14 +33,14 @@ prometheus_rbac: yes
 extra:
   # Pulsar proxy
   proxy: yes
-  # Bookkeeper auto-recovery
-  autoRecovery: yes
   # Pulsar dashboard
   dashboard: yes
   # Bastion pod for administrative commands
   bastion: yes
+  # Bookkeeper auto-recovery
+  autoRecovery: no
   # Monitoring stack (prometheus and grafana)
-  monitoring: yes
+  monitoring: no
 
 ## Which pulsar image to use
 image:
