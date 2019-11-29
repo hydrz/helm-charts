@@ -3,5 +3,5 @@
 ## Installing
 
 ```
-helm upgrade --install --name=greenplum --namespace greenplum hydrz/greenplum
+helm upgrade --install greenplum --namespace greenplum hydrz/greenplum
 ```
