@@ -19,7 +19,7 @@
 
 ## Namespace to deploy pulsar
 namespace: pulsar
-namespaceCreate: yes
+namespaceCreate: no
 
 ## If persistence is enabled, components that has state will
 ## be deployed with PersistentVolumeClaims, otherwise, for test
