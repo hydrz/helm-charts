@@ -3,5 +3,6 @@
 #### Install Pulsar Chart
 
 ```
-helm upgrade --install pulsar --namespace pulsar hydrz/pulsar
+helm upgrade --install pulsar --namespace pulsar hydrz/pulsar \
+--set zookeeper.replicaCount=2
 ```
