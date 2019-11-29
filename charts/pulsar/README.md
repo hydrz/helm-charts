@@ -4,5 +4,5 @@
 
 ```
 helm upgrade --install pulsar --namespace pulsar hydrz/pulsar \
---set zookeeper.replicaCount=2
+--set zookeeper.replicaCount=2,bookkeeper.replicaCount=2
 ```

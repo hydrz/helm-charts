@@ -27,7 +27,7 @@ persistence: no
 ## will be deployed with emptyDir
 prometheus_persistence: no
 
-prometheus_rbac: yes
+prometheus_rbac: no
 
 ## which extra components to deploy
 extra:
