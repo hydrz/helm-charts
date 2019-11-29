@@ -39,7 +39,7 @@ spec:
         command: ["sh", "-c"]
         args:
           - >-
-            until nslookup {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}-{{ add (.Values.zookeeper.replicaCount | int) -1 }}.{{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}.${PULSAR_NAMESPACE}; do
+            until nslookup {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}-{{ add (.Values.zookeeper.replicaCount | int) -1 }}.{{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }}; do
               sleep 3;
             done;
       containers:
@@ -50,9 +50,6 @@ spec:
         resources:
 {{ toYaml .Values.zookeeperMetadata.resources | indent 10 }}
       {{- end }}
-        env:
-        - name: PULSAR_NAMESPACE
-          value: "{{ .Release.Namespace }}"
         command: ["sh", "-c"]
         args:
           - >
@@ -60,6 +57,6 @@ spec:
               --cluster {{ template "pulsar.fullname" . }} \
               --zookeeper {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }} \
               --configuration-store {{ template "pulsar.fullname" . }}-{{ .Values.zookeeper.component }} \
-              --web-service-url http://{{ template "pulsar.fullname" . }}-{{ .Values.broker.component }}.${PULSAR_NAMESPACE}.svc.cluster.local:8080/ \
-              --broker-service-url pulsar://{{ template "pulsar.fullname" . }}-{{ .Values.broker.component }}.${PULSAR_NAMESPACE}.svc.cluster.local:6650/ || true;
+              --web-service-url http://{{ template "pulsar.fullname" . }}-{{ .Values.broker.component }}:8080/ \
+              --broker-service-url pulsar://{{ template "pulsar.fullname" . }}-{{ .Values.broker.component }}:6650/ || true;
       restartPolicy: Never
