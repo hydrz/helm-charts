@@ -5,12 +5,12 @@ metadata:
 spec:
   masterAndStandby:
     hostBasedAuthentication: |
-      # host   all   gpadmin   1.2.3.4/32   trust
-      # host   all   gpuser    0.0.0.0/0   md5
+      host   all   gpadmin   0.0.0.0/0   trust
+      host   all   gpuser    0.0.0.0/0   md5
     memory: "800Mi"
     cpu: "0.5"
     storageClassName: "alicloud-nas"
-    storage: 1G
+    storage: 2G
     antiAffinity: "yes"
     workerSelector: {}
   segments:
@@ -18,6 +18,6 @@ spec:
     memory: "800Mi"
     cpu: "0.5"
     storageClassName: "alicloud-nas"
-    storage: 2G
+    storage: 5G
     antiAffinity: "yes"
     workerSelector: {}
