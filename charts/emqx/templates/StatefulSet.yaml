@@ -9,8 +9,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  imagePullSecrets:
-    - name: {{ .Values.imagePullSecrets }}
   serviceName: {{ include "emqx.fullname" . }}-headless
   {{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
   volumeClaimTemplates:
@@ -67,6 +65,8 @@ spec:
       serviceAccountName:  {{ include "emqx.fullname" . }}
       securityContext:
         fsGroup: 1000
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
       containers:
         - name: emqx
           image: {{ .Values.image}}
