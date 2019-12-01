@@ -12,9 +12,10 @@ helm upgrade --install emqx --namespace iot hydrz/emqx \
 私有仓库
 
 ```
+kubectl create secret generic emqx-license --from-file=emqx.lic
 helm upgrade --install emqx --namespace iot hydrz/emqx \
     --set image=registry.cn-hangzhou.aliyuncs.com/hydrz/emqx:3.4.4  \
-    --set imagePullPolicy=Always \
+    --set emqxLicneseSecretName=emqx-license
     --set imagePullSecrets=reg-aliyun-hydrz \
     --set persistence.enabled=true
 ```
