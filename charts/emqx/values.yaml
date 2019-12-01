@@ -8,6 +8,7 @@ apiserver: https://kubernetes.default.svc:443
 replicas: 1
 image: emqx/emqx:latest
 imagePullPolicy: IfNotPresent
+imagePullSecrets: regsecret
 nodeSelector: {}
 
 persistence:

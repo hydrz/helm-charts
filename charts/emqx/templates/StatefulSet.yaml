@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   imagePullSecrets:
-    - name: regsecret
+    - name: {{ .Values.imagePullSecrets }}
   serviceName: {{ include "emqx.fullname" . }}-headless
   {{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
   volumeClaimTemplates:

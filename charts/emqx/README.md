@@ -15,5 +15,6 @@ helm upgrade --install emqx --namespace iot hydrz/emqx \
 helm upgrade --install emqx --namespace iot hydrz/emqx \
     --set image=registry.cn-hangzhou.aliyuncs.com/hydrz/emqx:3.4.4  \
     --set imagePullPolicy=Always \
+    --set imagePullSecrets=regsecret \
     --set persistence.enabled=true
 ```
