@@ -53,6 +53,10 @@ service:
   websocketPort: 8083
   wssPort: 8084
   dashboardPort: 18083
+  tcp: 8090
+  coap: 5683
+  jt808: 6207
+
 
 ingress:
   enabled: false

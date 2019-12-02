@@ -35,6 +35,18 @@ spec:
     port: {{ .Values.service.dashboardPort }}
     protocol: TCP
     targetPort: 18083
+  - name: tcp
+    port: {{ .Values.service.tcp }}
+    protocol: TCP
+    targetPort: 8090
+  - name: coap
+    port: {{ .Values.service.coap }}
+    protocol: UDP
+    targetPort: 5683
+  - name: jt808
+    port: {{ .Values.service.jt808 }}
+    protocol: TCP
+    targetPort: 6207
   selector:
     app.kubernetes.io/name: {{ include "emqx.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -79,6 +91,18 @@ spec:
     port: {{ .Values.service.dashboardPort }}
     protocol: TCP
     targetPort: 18083
+  - name: tcp
+    port: {{ .Values.service.tcp }}
+    protocol: TCP
+    targetPort: 8090
+  - name: coap
+    port: {{ .Values.service.coap }}
+    protocol: UDP
+    targetPort: 5683
+  - name: jt808
+    port: {{ .Values.service.jt808 }}
+    protocol: TCP
+    targetPort: 6207
   selector:
     app.kubernetes.io/name: {{ include "emqx.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
