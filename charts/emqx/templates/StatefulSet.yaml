@@ -26,6 +26,20 @@ spec:
         {{- else }}
           volume.alpha.kubernetes.io/storage-class: default
         {{- end }}
+    - metadata:
+        name: emqx-etc
+        namespace: {{ .Release.Namespace }}
+        labels:
+          app.kubernetes.io/name: {{ include "emqx.name" . }}
+          helm.sh/chart: {{ include "emqx.chart" . }}
+          app.kubernetes.io/instance: {{ .Release.Name }}
+          app.kubernetes.io/managed-by: {{ .Release.Service }}
+        annotations:
+        {{- if .Values.persistence.storageClass }}
+          volume.beta.kubernetes.io/storage-class: {{ .Values.persistence.storageClass | quote }}
+        {{- else }}
+          volume.alpha.kubernetes.io/storage-class: default
+        {{- end }}
       spec:
         accessModes:
           - {{ .Values.persistence.accessMode | quote }}
@@ -111,6 +125,9 @@ spec:
           volumeMounts:
           - name: emqx-data
             mountPath: "/opt/emqx/data/mnesia"
+          volumeMounts:
+          - name: emqx-etc
+            mountPath: "/opt/emqx/etc"
           {{ if .Values.emqxLicneseSecretName  }}
           - name: emqx-license
             mountPath: "/opt/emqx/etc/emqx.lic"
