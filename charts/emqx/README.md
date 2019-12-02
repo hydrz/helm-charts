@@ -17,5 +17,6 @@ helm upgrade --install --devel emqx --namespace iot hydrz/emqx \
     --set imagePullPolicy=IfNotPresent \
     --set imagePullSecrets=reg-aliyun-hydrz \
     --set persistence.enabled=true \
-    --set replicas=2
+    --set replicas=2 \
+    --set emqxAddressType=hostname
 ```

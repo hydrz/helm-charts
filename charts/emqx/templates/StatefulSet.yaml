@@ -78,6 +78,9 @@ spec:
           - containerPort: 8083
           - containerPort: 8084
           - containerPort: 18083
+          - containerPort: 8090
+          - containerPort: 5683
+          - containerPort: 6207
           envFrom:
             - configMapRef:
                 name: {{ include "emqx.fullname" . }}-env 
