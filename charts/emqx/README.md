@@ -13,12 +13,8 @@ helm upgrade --install emqx --namespace iot hydrz/emqx \
 
 ```
 helm upgrade --install emqx --namespace iot hydrz/emqx \
-    --set replicas=2 \
-    --set emqxAddressType=hostname
-
-helm upgrade --install emqx --namespace iot hydrz/emqx \
+    --set persistence.enabled=true \
     --set image=registry.cn-hangzhou.aliyuncs.com/hydrz/emqx:3.4.4  \
-    --set imagePullPolicy=Always \
     --set imagePullSecrets=reg-aliyun-hydrz \
     --set replicas=2 \
     --set emqxAddressType=hostname \
