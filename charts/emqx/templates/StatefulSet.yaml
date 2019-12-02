@@ -101,10 +101,10 @@ spec:
             value: {{ .Values.emqxAddressType }}
           {{- if eq  .Values.emqxAddressType "hostname" }}
           - name: EMQX_CLUSTER__K8S__SUFFIX
-            value: svc.cluster.local
+            value: {{ .Values.emqxSuffix | default "svc.cluster.local" }}
           {{- else if eq .Values.emqxAddressType "dns" }}
           - name: EMQX_CLUSTER__K8S__SUFFIX
-            value: pod.cluster.local
+            value: {{ .Values.emqxSuffix | default "pod.cluster.local" }}
           {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}

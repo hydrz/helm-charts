@@ -35,7 +35,8 @@ resources: {}
 ##
 ## Value: ip | dns | hostname
 ## Note：Hostname is only supported after v3.2.1
-emqxAddressType: ip 
+emqxAddressType: hostname 
+emqxSuffix: svc.cluster.local
 
 # EMQX configuration item, see the documentation (https://github.com/emqx/emqx-docker#emq-x-configuration)
 emqxConfig: {}
