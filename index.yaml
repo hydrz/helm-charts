@@ -3,16 +3,16 @@ entries:
   emqx:
   - apiVersion: v1
     appVersion: v1.0.1
-    created: "2019-12-02T13:12:12.209985605Z"
+    created: "2019-12-03T09:09:34.42408706Z"
     description: A Helm chart for EMQ X
-    digest: 30bc6f1c28caf390d7ad55016482a45f6865c987bae0e32b752ee4fecd729e8e
+    digest: 67f003b2be7df7dad18b77b82fe5235ef6059670a014050f525849939b81ac3e
     name: emqx
     urls:
     - emqx/emqx-v1.0.1.tgz
     version: v1.0.1
   - apiVersion: v1
     appVersion: v1.0.0-beta.3
-    created: "2019-12-02T13:12:12.209606081Z"
+    created: "2019-12-03T09:09:34.423822834Z"
     description: A Helm chart for EMQ X
     digest: d500d81c8d28696e3eefe7aaa6cd3bcfe32b8ee9c1b488fb070842de6a676ac8
     name: emqx
@@ -22,9 +22,9 @@ entries:
   greenplum:
   - apiVersion: v1
     appVersion: v1.9.0
-    created: "2019-12-02T13:12:12.210359085Z"
+    created: "2019-12-03T09:09:34.424376181Z"
     description: The Helm chart for the operator of Greenplum for Kubernetes
-    digest: 3cbfeca90da7963c66e1ce78956fd7581f327bc7719d75ff80fd67dcec33df61
+    digest: 0c5aa8f496e10301f8b02562b85fdc9cd551b749e72e2082ec3770ab10c18974
     name: greenplum
     urls:
     - greenplum/greenplum-1.2.0.tgz
@@ -32,7 +32,7 @@ entries:
   minio-ha:
   - apiVersion: v1
     appVersion: RELEASE.2019-08-07T01-59-21Z
-    created: "2019-12-02T13:12:12.211765053Z"
+    created: "2019-12-03T09:09:34.425635878Z"
     description: MinIO is a high performance distributed object storage server, designed
       for large-scale private cloud infrastructure.
     digest: 879e825e45137d4c3fe79238e1ec355d6f9c77e851cd090894ad9bdd5acc8c0d
@@ -56,7 +56,7 @@ entries:
   mysql-ha:
   - apiVersion: v1
     appVersion: 5.7.13
-    created: "2019-12-02T13:12:12.21270597Z"
+    created: "2019-12-03T09:09:34.426298963Z"
     description: MySQL cluster with a single master and zero or more slave replicas
     digest: 81ca409fee621dd93b16e4ee9d70afde41cff1fbe8af74f18fab1af6c4169615
     home: https://www.mysql.com/
@@ -77,9 +77,9 @@ entries:
   openebs-lite:
   - apiVersion: v1
     appVersion: 1.4.0
-    created: "2019-12-02T13:12:12.21338887Z"
+    created: "2019-12-03T09:09:34.426710492Z"
     description: Containerized Storage for Containers
-    digest: 0939d0f9300c1236682fa3a8237ace54a76a8b2630a61906779424458727e6c0
+    digest: 4e7d3e2b8ac8aaf8efe8edc966fdb514fa239dad1c9521bfd7680af7c2ee37d3
     home: http://www.openebs.io/
     icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
     keywords:
@@ -99,7 +99,7 @@ entries:
   openldap-ha:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-02T13:12:12.213729823Z"
+    created: "2019-12-03T09:09:34.42694989Z"
     description: A Helm chart for Kubernetes
     digest: 3bbd10bae26a119e574df22484c7cb21f88673273cde5be33a8e7f3e6c22673d
     name: openldap-ha
@@ -109,9 +109,9 @@ entries:
   pulsar:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-02T13:12:12.214813177Z"
+    created: "2019-12-03T09:09:34.427725724Z"
     description: Apache Pulsar Helm chart for Kubernetes
-    digest: 78a3dd165b29c24afea81539f7ac0d40518ccf4235ad0205fd0052b09d73f5ca
+    digest: 426e9c8b1ec4374a2b6674845fe15bd5ac90d2271a262cca3c179533904b4378
     name: pulsar
     urls:
     - pulsar/pulsar-1.0.0.tgz
@@ -119,7 +119,7 @@ entries:
   redis-ha:
   - apiVersion: v1
     appVersion: 5.0.5
-    created: "2019-12-02T13:12:12.215942378Z"
+    created: "2019-12-03T09:09:34.428505429Z"
     description: Highly available Kubernetes implementation of Redis
     digest: a91c31a4048f1c7d70e8e121132f6efbd9119cd10d62cd62c0c9619b5dd4fed0
     engine: gotpl
@@ -142,4 +142,4 @@ entries:
     urls:
     - redis-ha/redis-ha-3.9.0.tgz
     version: 3.9.0
-generated: "2019-12-02T13:12:12.209033922Z"
+generated: "2019-12-03T09:09:34.423393287Z"
