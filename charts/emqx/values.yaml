@@ -19,13 +19,13 @@ persistence:
   # storageClass: "-"
   accessMode: ReadWriteOnce
 
-resources: {}
-  # limits:
-  #   cpu: 500m
-  #   memory: 512Mi
-  # requests:
-  #   cpu: 500m
-  #   memory: 512Mi
+resources:
+  limits:
+    cpu: 1
+    memory: 1024Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
 
 ## The address type is used to extract host from k8s service.
 ##
