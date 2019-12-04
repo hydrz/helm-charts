@@ -22,10 +22,10 @@ persistence:
 resources:
   limits:
     cpu: 1
-    memory: 1024Mi
+    memory: 2Gi
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 100m
+    memory: 256Mi
 
 ## The address type is used to extract host from k8s service.
 ##
