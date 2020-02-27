@@ -15,13 +15,14 @@ helm repo update
 ## Others
 
 ### openvpn
-
+```
 helm upgrade --install openvpn --namespace openvpn stable/openvpn \
  --set service.type=ClusterIP,service.externalPort=1194,service.internalPort=1194 \
  --set openvpn.OVPN_NETWORK=10.242.1.0,openvpn.OVPN_SUBNET=255.255.255.0,openvpn.OVPN_PROTO=tcp \
  --set openvpn.OVPN_K8S_POD_NETWORK=10.240.0.0,openvpn.OVPN_K8S_POD_SUBNET=255.255.0.0 \
  --set openvpn.OVPN_K8S_SVC_NETWORK=10.241.0.0,openvpn.OVPN_K8S_SVC_SUBNET=255.255.0.0 \
  --set openvpn.redirectGateway=false
+ ```
 
 ### cert-manager
 
