@@ -68,7 +68,7 @@ helm upgrade --install git --namespace ops-dev incubator/gogs \
     --set service.gogs.serverDomain=git.hydrz.cn \
     --set service.gogs.serverRootUrl=http://git.hydrz.cn/ \
     --set service.gogs.serverLandingPage=explore \
-    --set service.gogs.securitySecretKey=css0929 \
+    --set service.gogs.securitySecretKey=123456 \
     --set persistence.size=10Gi
 ```
 
